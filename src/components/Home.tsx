@@ -1,6 +1,23 @@
 import { Board } from "./game/Board";
+import { useState } from "react";
+import styled from "styled-components";
+
+const StyledStartButton = styled.button`
+  background: lightgreen;
+  text-transform: uppercase;
+  font-size: 2rem;
+  &:hover {
+    cursor: pointer;
+  }
+  border-radius: 8px;
+  border: 0.5px solid black;
+  display: block;
+  margin: auto;
+  margin-top: 50px;
+`;
 
 const Home = () => {
+  const [gameStarted, setGameStarted] = useState(false);
   return (
     <main>
       <h1>Quarto</h1>
@@ -19,7 +36,13 @@ const Home = () => {
           place
         </li>
       </ul>
-      <Board />
+      {gameStarted ? (
+        <Board />
+      ) : (
+        <StyledStartButton onClick={() => setGameStarted(true)}>
+          start quarto
+        </StyledStartButton>
+      )}
     </main>
   );
 };
