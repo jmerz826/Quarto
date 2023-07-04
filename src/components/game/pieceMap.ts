@@ -4,7 +4,7 @@ const pieceMap: { [P in keyof IPiece]: IPiece[P][] } = {
   color: ["light", "dark"],
   height: ["short", "tall"],
   shape: ["rounded", "square"],
-  pattern: ["solid", "striped"],
+  pattern: ["solid", "polka-dot"],
 };
 
 const keys = Object.keys(pieceMap);

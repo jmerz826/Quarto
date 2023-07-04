@@ -4,7 +4,7 @@ export interface IPiece {
   color: "light" | "dark";
   shape: "square" | "rounded";
   height: "tall" | "short";
-  pattern: "striped" | "solid";
+  pattern: "polka-dot" | "solid";
 }
 
 const StyledPiece = styled.div`

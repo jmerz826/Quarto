@@ -11,7 +11,8 @@ const Home = () => {
         </li>
         <li>
           <span className="italic">like pieces</span> is defined by matching in
-          height, color, surface (flat vs. hole), or shape (square vs. circular)
+          height, color, surface (polka-dot vs. solid), or shape (square vs.
+          rounded)
         </li>
         <li>
           You must place your piece, then choose a piece for your opponent to
