@@ -4,8 +4,7 @@ import { Piece } from "./Piece";
 
 const StyledTile = styled.div`
   margin: 16px;
-  background-color: red;
-  opacity: 0.6;
+  background-color: rgba(255, 0, 0, 0.6);
   width: 100px;
   border: 2px solid gold;
   &.piece-hover {
