@@ -13,10 +13,10 @@ const Row = (props: RowProps) => {
   const { rowId } = props;
   return (
     <StyledRow>
-      <Tile rowId={rowId} tileId={1} />
-      <Tile rowId={rowId} tileId={2} />
-      <Tile rowId={rowId} tileId={3} />
-      <Tile rowId={rowId} tileId={4} />
+      <Tile rowId={rowId} columnId={1} />
+      <Tile rowId={rowId} columnId={2} />
+      <Tile rowId={rowId} columnId={3} />
+      <Tile rowId={rowId} columnId={4} />
     </StyledRow>
   );
 };

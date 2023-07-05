@@ -20,11 +20,11 @@ const StyledTile = styled.div`
 
 interface TileProps {
   rowId: number;
-  tileId: number;
+  columnId: number;
 }
 
 const Tile = (props: TileProps) => {
-  const { rowId, tileId } = props;
+  const { rowId, columnId } = props;
   const { setDropLock } = useContext(
     AvailablePiecesContext
   ) as IAvailablePieces;
@@ -74,7 +74,7 @@ const Tile = (props: TileProps) => {
       onDrop={handleDrop}
       data-occupied={isOccupied}
       data-row={rowId}
-      data-column={tileId}
+      data-column={columnId}
     >
       {occupiedPieceClasses && (
         <Piece
