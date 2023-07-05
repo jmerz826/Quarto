@@ -40,7 +40,6 @@ const Tile = () => {
       JSON.parse(e.dataTransfer.getData("text/plain"))
     );
 
-    console.log(droppedElementClasses);
     if (!isOccupied) {
       setIsOccupied(true);
       setOccupiedPieceClasses(droppedElementClasses);
