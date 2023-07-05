@@ -10,7 +10,7 @@ const pieceMap: { [P in keyof IPiece]: IPiece[P][] } = {
 const keys = Object.keys(pieceMap);
 const values = Object.values(pieceMap);
 
-function generateIterations<T extends Record<keyof IPiece, string>>(
+function generateInitialPieces<T extends Record<keyof IPiece, string>>(
   index = 0,
   iteration: T = {} as T
 ): T[] {
@@ -24,10 +24,10 @@ function generateIterations<T extends Record<keyof IPiece, string>>(
 
   for (const value of currentValues) {
     const newIteration = { ...iteration, [key]: value };
-    iterations.push(...generateIterations(index + 1, newIteration));
+    iterations.push(...generateInitialPieces(index + 1, newIteration));
   }
 
   return iterations;
 }
 
-export { generateIterations };
+export { generateInitialPieces };

@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { IPiece, Piece } from "./Piece";
+import { Piece } from "./Piece";
+import { useContext } from "react";
+import { AvailablePiecesContext, IAvailablePieces } from "./Board";
 
 const StyledPiecesTray = styled.div`
   background-color: gold;
@@ -10,11 +12,11 @@ const StyledPiecesTray = styled.div`
   justify-content: space-around;
   padding: 10px;
 `;
-interface Props {
-  availablePieces: IPiece[];
-}
-const PiecesTray = (props: Props) => {
-  const { availablePieces } = props;
+
+const PiecesTray = () => {
+  const { availablePieces } = useContext(
+    AvailablePiecesContext
+  ) as IAvailablePieces;
   return (
     <StyledPiecesTray>
       {availablePieces.map(({ color, shape, pattern, height }) => {

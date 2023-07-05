@@ -17,7 +17,7 @@ const StyledStartButton = styled.button`
 `;
 
 const Home = () => {
-  const [gameStarted, setGameStarted] = useState(false);
+  const [gameStarted, setGameStarted] = useState(true);
   return (
     <main>
       <h1>Quarto</h1>
@@ -39,7 +39,7 @@ const Home = () => {
       {gameStarted ? (
         <Board />
       ) : (
-        <StyledStartButton onClick={() => setGameStarted(true)}>
+        <StyledStartButton onClick={() => setGameStarted(!gameStarted)}>
           start quarto
         </StyledStartButton>
       )}

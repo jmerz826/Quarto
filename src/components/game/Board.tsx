@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Row } from "./Row";
-import { useState } from "react";
+import { useState, createContext, useEffect, ReactNode, useMemo } from "react";
 import { PiecesTray } from "./PiecesTray";
 import { IPiece } from "./Piece";
-import { generateIterations } from "./pieceMap";
+import { generateInitialPieces } from "./pieceMap";
 
 const StyledBoard = styled.div`
   height: 400px;
@@ -15,22 +15,52 @@ const StyledBoard = styled.div`
   border-radius: 4px;
 `;
 
-const Board = () => {
+export interface IAvailablePieces {
+  availablePieces: IPiece[];
+  setAvailablePieces: React.Dispatch<React.SetStateAction<IPiece[]>>;
+}
+
+interface IContextProviderProps {
+  children?: ReactNode;
+}
+
+const AvailablePiecesContext = createContext<IAvailablePieces | undefined>(
+  undefined
+);
+
+const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
+  const { children } = props;
   const [availablePieces, setAvailablePieces] = useState<IPiece[]>(
-    generateIterations()
+    generateInitialPieces()
+  );
+
+  const memoizedValue = useMemo(
+    () => ({
+      availablePieces,
+      setAvailablePieces,
+    }),
+    [availablePieces]
   );
 
   return (
-    <>
+    <AvailablePiecesContext.Provider value={memoizedValue}>
+      {children}
+    </AvailablePiecesContext.Provider>
+  );
+};
+
+const Board = () => {
+  return (
+    <AvailablePiecesContextProvider>
       <StyledBoard>
         <Row />
         <Row />
         <Row />
         <Row />
       </StyledBoard>
-      <PiecesTray availablePieces={availablePieces} />
-    </>
+      <PiecesTray />
+    </AvailablePiecesContextProvider>
   );
 };
 
-export { Board };
+export { Board, AvailablePiecesContext };
