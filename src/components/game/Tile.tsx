@@ -18,7 +18,13 @@ const StyledTile = styled.div`
   align-items: center;
 `;
 
-const Tile = () => {
+interface TileProps {
+  rowId: number;
+  tileId: number;
+}
+
+const Tile = (props: TileProps) => {
+  const { rowId, tileId } = props;
   const { setDropLock } = useContext(
     AvailablePiecesContext
   ) as IAvailablePieces;
@@ -67,6 +73,8 @@ const Tile = () => {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       data-occupied={isOccupied}
+      data-row={rowId}
+      data-column={tileId}
     >
       {occupiedPieceClasses && (
         <Piece

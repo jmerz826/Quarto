@@ -58,10 +58,10 @@ const Board = () => {
   return (
     <AvailablePiecesContextProvider>
       <StyledBoard>
-        <Row />
-        <Row />
-        <Row />
-        <Row />
+        <Row rowId={1} />
+        <Row rowId={2} />
+        <Row rowId={3} />
+        <Row rowId={4} />
       </StyledBoard>
       <PiecesTray />
     </AvailablePiecesContextProvider>

@@ -6,13 +6,17 @@ const StyledRow = styled.div`
   display: flex;
 `;
 
-const Row = () => {
+interface RowProps {
+  rowId: number;
+}
+const Row = (props: RowProps) => {
+  const { rowId } = props;
   return (
     <StyledRow>
-      <Tile></Tile>
-      <Tile></Tile>
-      <Tile></Tile>
-      <Tile></Tile>
+      <Tile rowId={rowId} tileId={1} />
+      <Tile rowId={rowId} tileId={2} />
+      <Tile rowId={rowId} tileId={3} />
+      <Tile rowId={rowId} tileId={4} />
     </StyledRow>
   );
 };
