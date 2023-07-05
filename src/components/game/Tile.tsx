@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useState, DragEventHandler, useContext } from "react";
-import { AvailablePiecesContext, IAvailablePieces } from "./Board";
-import { IPiece, Piece } from "./Piece";
+import { useState, DragEventHandler } from "react";
+import { Piece } from "./Piece";
 
 const StyledTile = styled.div`
   margin: 16px;
@@ -12,12 +11,12 @@ const StyledTile = styled.div`
   &.piece-hover {
     background-color: white;
   }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Tile = () => {
-  const { availablePieces, setAvailablePieces } = useContext(
-    AvailablePiecesContext
-  ) as IAvailablePieces;
   const [isOccupied, setIsOccupied] = useState(false);
   const [pieceHover, setPieceHover] = useState(false);
   const [occupiedPieceClasses, setOccupiedPieceClasses] = useState<
@@ -44,6 +43,7 @@ const Tile = () => {
       setIsOccupied(true);
       setOccupiedPieceClasses(droppedElementClasses);
     }
+    setPieceHover(false);
   };
 
   const getColor = () =>
