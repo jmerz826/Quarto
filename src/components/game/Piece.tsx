@@ -18,7 +18,7 @@ const StyledPiece = styled.div`
 
 const Piece = ({ color, height, shape, pattern }: IPiece) => {
   const [placed, setPlaced] = useState(false);
-  const { availablePieces, setAvailablePieces } = useContext(
+  const { setAvailablePieces, dropLock } = useContext(
     AvailablePiecesContext
   ) as IAvailablePieces;
 
@@ -31,19 +31,21 @@ const Piece = ({ color, height, shape, pattern }: IPiece) => {
   };
 
   const handleDrag: DragEventHandler = (e) => {
-    setPlaced(true);
-    const currentPieceClasses = [...(e.target as HTMLElement).classList];
-    setAvailablePieces((availablePieces) =>
-      availablePieces.filter(
-        ({ color, height, pattern, shape }) =>
-          !(
-            currentPieceClasses.includes(color) &&
-            currentPieceClasses.includes(height) &&
-            currentPieceClasses.includes(pattern) &&
-            currentPieceClasses.includes(shape)
-          )
-      )
-    );
+    if (!dropLock) {
+      setPlaced(true);
+      const currentPieceClasses = [...(e.target as HTMLElement).classList];
+      setAvailablePieces((availablePieces) =>
+        availablePieces.filter(
+          ({ color, height, pattern, shape }) =>
+            !(
+              currentPieceClasses.includes(color) &&
+              currentPieceClasses.includes(height) &&
+              currentPieceClasses.includes(pattern) &&
+              currentPieceClasses.includes(shape)
+            )
+        )
+      );
+    }
   };
 
   return (

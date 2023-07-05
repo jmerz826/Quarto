@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Row } from "./Row";
-import { useState, createContext, useEffect, ReactNode, useMemo } from "react";
+import { useState, createContext, ReactNode, useMemo } from "react";
 import { PiecesTray } from "./PiecesTray";
 import { IPiece } from "./Piece";
 import { generateInitialPieces } from "./pieceMap";
@@ -18,6 +18,8 @@ const StyledBoard = styled.div`
 export interface IAvailablePieces {
   availablePieces: IPiece[];
   setAvailablePieces: React.Dispatch<React.SetStateAction<IPiece[]>>;
+  dropLock: boolean;
+  setDropLock: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IContextProviderProps {
@@ -33,6 +35,7 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
   const [availablePieces, setAvailablePieces] = useState<IPiece[]>(
     generateInitialPieces()
   );
+  const [dropLock, setDropLock] = useState(false);
 
   const memoizedValue = useMemo(
     () => ({
@@ -43,7 +46,9 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
   );
 
   return (
-    <AvailablePiecesContext.Provider value={memoizedValue}>
+    <AvailablePiecesContext.Provider
+      value={{ ...memoizedValue, dropLock, setDropLock }}
+    >
       {children}
     </AvailablePiecesContext.Provider>
   );
