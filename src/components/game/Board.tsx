@@ -4,6 +4,7 @@ import { useState, createContext, ReactNode, useMemo, useEffect } from "react";
 import { PiecesTray } from "./PiecesTray";
 import { IPiece } from "./Piece";
 import { generateInitialPieces, validValues, startingBoard } from "./pieceMap";
+import { scanForWinner, transposeArray } from "../../utils/helpers";
 
 const StyledBoard = styled.div`
   height: 400px;
@@ -65,34 +66,14 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
       // update boardMap state if newly occupied piece
       if (!boardMap[row][column].length) {
         setBoardMap((prevState) => {
-          const newState = [...prevState]; // Create a shallow copy of the nestedArray
-          newState[row] = [...newState[row]]; // Create a shallow copy of the inner array at index x
-          newState[row][column] = occupyingPieceClasses; // Update the value at index [x][y]
+          const newState = [...prevState];
+          newState[row] = [...newState[row]];
+          newState[row][column] = occupyingPieceClasses;
           return newState;
         });
       }
-      boardMap.forEach((row) => {
-        // loop through each row
-        let winningAttributes: string[] = [];
-        for (let col = 0; col < row.length; col++) {
-          // unoccupied tile
-          if (!row[col].length) break;
-          if (
-            // skip first column
-            col !== 0
-          ) {
-            winningAttributes = winningAttributes.filter((value) =>
-              row[col].includes(value)
-            );
-          }
-          if (col === 0) {
-            winningAttributes = row[col];
-            continue;
-          }
-          if (col === row.length - 1 && winningAttributes.length)
-            setWinner(true);
-        }
-      });
+      if (scanForWinner(boardMap) || scanForWinner(transposeArray(boardMap)))
+        setWinner(true);
     });
   }, [availablePieces, boardMap]);
 
