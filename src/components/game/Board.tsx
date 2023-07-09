@@ -72,10 +72,25 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
         });
       }
       boardMap.forEach((row) => {
+        // loop through each row
+        let winningAttributes: string[] = [];
         for (let col = 0; col < row.length; col++) {
           // unoccupied tile
           if (!row[col].length) break;
-          if (col === row.length - 1) setWinner(true);
+          if (
+            // skip first column
+            col !== 0
+          ) {
+            winningAttributes = winningAttributes.filter((value) =>
+              row[col].includes(value)
+            );
+          }
+          if (col === 0) {
+            winningAttributes = row[col];
+            continue;
+          }
+          if (col === row.length - 1 && winningAttributes.length)
+            setWinner(true);
         }
       });
     });
