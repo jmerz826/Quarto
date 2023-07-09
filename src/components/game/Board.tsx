@@ -73,16 +73,16 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
           return newState;
         });
       }
-      if (
-        // rows
-        scanForWinner(boardMap) ||
-        // columns
-        scanForWinner(transposeArray(boardMap)) ||
-        // diagonals
-        scanForWinner(boardMap, true)
-      )
-        setWinner(true);
     });
+    if (
+      // rows
+      scanForWinner(boardMap) ||
+      // columns
+      scanForWinner(transposeArray(boardMap)) ||
+      // diagonals
+      scanForWinner(boardMap, true)
+    )
+      setWinner(true);
   }, [availablePieces, boardMap]);
 
   // winner display
