@@ -73,7 +73,14 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
           return newState;
         });
       }
-      if (scanForWinner(boardMap) || scanForWinner(transposeArray(boardMap)))
+      if (
+        // rows
+        scanForWinner(boardMap) ||
+        // columns
+        scanForWinner(transposeArray(boardMap)) ||
+        // diagonals
+        scanForWinner(boardMap, true)
+      )
         setWinner(true);
     });
   }, [availablePieces, boardMap]);
