@@ -3,7 +3,7 @@ import { Row } from "./Row";
 import { useState, createContext, ReactNode, useMemo, useEffect } from "react";
 import { PiecesTray } from "./PiecesTray";
 import { IPiece } from "./Piece";
-import { generateInitialPieces, startingBoard } from "./pieceMap";
+import { generateInitialPieces, validValues, startingBoard } from "./pieceMap";
 
 const StyledBoard = styled.div`
   height: 400px;
@@ -49,7 +49,7 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
 
   useEffect(() => {
     const occupiedTiles = [
-      ...document.querySelectorAll("[data-occupied=true]"),
+      ...document.querySelectorAll("#game-board [data-occupied=true]"),
     ];
 
     occupiedTiles.forEach((tile) => {
@@ -59,7 +59,10 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
       );
       const occupyingPieceClasses = [
         ...(tile.firstChild as HTMLElement).classList,
-      ];
+      ].filter((className) =>
+        validValues.includes(className as (typeof validValues)[number])
+      );
+      // update boardMap state if newly occupied piece
       if (!boardMap[row][column].length) {
         setBoardMap((prevState) => {
           const newState = [...prevState]; // Create a shallow copy of the nestedArray
@@ -68,8 +71,15 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
           return newState;
         });
       }
+      boardMap.forEach((row) => {
+        console.log(row);
+        for (let col = 0; col < row.length; col++) {
+          if (!row[col].length) break;
+          if (col === row.length - 1) setWinner(true);
+        }
+      });
     });
-  }, [availablePieces]);
+  }, [availablePieces, boardMap]);
 
   // winner display
   useEffect(() => {
@@ -88,7 +98,7 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
 const Board = () => {
   return (
     <AvailablePiecesContextProvider>
-      <StyledBoard>
+      <StyledBoard id="game-board">
         <Row rowId={0} />
         <Row rowId={1} />
         <Row rowId={2} />

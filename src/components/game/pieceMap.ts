@@ -43,5 +43,6 @@ const getStartingBoard = (numberOfRows: number) => {
 };
 
 const startingBoard = getStartingBoard(keys.length);
+const validValues = Object.values(pieceMap).flat();
 
-export { generateInitialPieces, startingBoard };
+export { generateInitialPieces, startingBoard, validValues };
