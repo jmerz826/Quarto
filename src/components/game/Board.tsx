@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Row } from "./Row";
-import { useState, createContext, ReactNode, useMemo } from "react";
+import { useState, createContext, ReactNode, useMemo, useEffect } from "react";
 import { PiecesTray } from "./PiecesTray";
 import { IPiece } from "./Piece";
-import { generateInitialPieces } from "./pieceMap";
+import { generateInitialPieces, startingBoard } from "./pieceMap";
 
 const StyledBoard = styled.div`
   height: 400px;
@@ -36,6 +36,8 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
     generateInitialPieces()
   );
   const [dropLock, setDropLock] = useState(false);
+  const [isWinner, setWinner] = useState(false);
+  const [boardMap, setBoardMap] = useState<any[]>(startingBoard);
 
   const memoizedValue = useMemo(
     () => ({
@@ -44,6 +46,35 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
     }),
     [availablePieces]
   );
+
+  useEffect(() => {
+    const occupiedTiles = [
+      ...document.querySelectorAll("[data-occupied=true]"),
+    ];
+
+    occupiedTiles.forEach((tile) => {
+      const row = Number(tile.getAttribute("data-row") as unknown as string);
+      const column = Number(
+        tile.getAttribute("data-column") as unknown as string
+      );
+      const occupyingPieceClasses = [
+        ...(tile.firstChild as HTMLElement).classList,
+      ];
+      if (!boardMap[row][column].length) {
+        setBoardMap((prevState) => {
+          const newState = [...prevState]; // Create a shallow copy of the nestedArray
+          newState[row] = [...newState[row]]; // Create a shallow copy of the inner array at index x
+          newState[row][column] = occupyingPieceClasses; // Update the value at index [x][y]
+          return newState;
+        });
+      }
+    });
+  }, [availablePieces]);
+
+  // winner display
+  useEffect(() => {
+    if (isWinner) alert("winner!");
+  }, [isWinner]);
 
   return (
     <AvailablePiecesContext.Provider
@@ -58,10 +89,10 @@ const Board = () => {
   return (
     <AvailablePiecesContextProvider>
       <StyledBoard>
+        <Row rowId={0} />
         <Row rowId={1} />
         <Row rowId={2} />
         <Row rowId={3} />
-        <Row rowId={4} />
       </StyledBoard>
       <PiecesTray />
     </AvailablePiecesContextProvider>
