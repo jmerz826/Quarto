@@ -73,6 +73,7 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
       }
       boardMap.forEach((row) => {
         for (let col = 0; col < row.length; col++) {
+          // unoccupied tile
           if (!row[col].length) break;
           if (col === row.length - 1) setWinner(true);
         }
