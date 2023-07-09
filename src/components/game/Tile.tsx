@@ -54,11 +54,16 @@ const Tile = (props: TileProps) => {
 
   const handleDrop: DragEventHandler = (e) => {
     e.preventDefault();
-    const droppedElementClasses: string[] = Object.values(
-      JSON.parse(e.dataTransfer.getData("text/plain"))
-    );
+    let droppedElementClasses: string[] = [];
+    try {
+      droppedElementClasses = Object.values(
+        JSON.parse(e.dataTransfer.getData("text/plain"))
+      );
+    } catch (e) {
+      setPieceHover(false);
+    }
 
-    if (!isOccupied) {
+    if (!isOccupied && droppedElementClasses.includes("piece")) {
       setIsOccupied(true);
       setOccupiedPieceClasses(droppedElementClasses);
     }
