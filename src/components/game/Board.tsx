@@ -5,6 +5,7 @@ import { PiecesTray } from "./PiecesTray";
 import { IPiece } from "./Piece";
 import { generateInitialPieces, validValues, startingBoard } from "./pieceMap";
 import { scanForWinner, transposeArray } from "../../utils/helpers";
+import { ValidValue } from "./types/game";
 
 const StyledBoard = styled.div`
   height: 400px;
@@ -61,7 +62,7 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
       const occupyingPieceClasses = (
         [
           ...(tile.firstChild as HTMLElement).classList,
-        ] as unknown as (typeof validValues)[number][]
+        ] as unknown as ValidValue[]
       ).filter((className) => validValues.includes(className));
       // update boardMap state if newly occupied piece
       if (!boardMap[row][column].length) {

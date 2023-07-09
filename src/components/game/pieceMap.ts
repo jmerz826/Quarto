@@ -1,4 +1,5 @@
 import { IPiece } from "./Piece";
+import { ValidValue } from "./types/game";
 
 const pieceMap: { [P in keyof IPiece]: IPiece[P][] } = {
   color: ["light", "dark"],
@@ -30,9 +31,7 @@ function generateInitialPieces<T extends Record<keyof IPiece, string>>(
   return iterations;
 }
 
-const getStartingBoard = (
-  numberOfRows: number
-): (typeof validValues)[number][][][] => {
+const getStartingBoard = (numberOfRows: number): ValidValue[][][] => {
   const rowArr = [];
   for (let i = 0; i < numberOfRows; i++) {
     const colArr = [];
