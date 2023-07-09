@@ -17,13 +17,15 @@ export const getShape = (occupiedPieceClasses: string[]) =>
     ? "rounded"
     : "square";
 
-export const transposeArray = <T>(arr: T[][]): T[][] =>
+const transposeArray = <T>(arr: T[][]): T[][] =>
   arr[0].map((_, columnIndex) => arr.map((row) => row[columnIndex]));
 
-export const scanForWinner = (
-  arr: ValidValue[][][],
-  searchDiagonals = false
-) => {
+/**
+ * scans row for all tiles sharing a like condition
+ *
+ * pass `searchDiagonals=true` to account for diagonals
+ */
+const scanRowForWinner = (arr: ValidValue[][][], searchDiagonals = false) => {
   let isWinner = false;
   if (searchDiagonals) {
     // top left to bottom right
@@ -63,3 +65,11 @@ function checkAttributes(row: ValidValue[][]) {
   }
   return isWinner;
 }
+
+export const scanBoardForWinner = (boardMap: ValidValue[][][]) =>
+  // rows
+  scanRowForWinner(boardMap) ||
+  // columns
+  scanRowForWinner(transposeArray(boardMap)) ||
+  // diagonals
+  scanRowForWinner(boardMap, true);

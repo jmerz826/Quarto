@@ -4,7 +4,7 @@ import { useState, createContext, ReactNode, useMemo, useEffect } from "react";
 import { PiecesTray } from "./PiecesTray";
 import { IPiece } from "./Piece";
 import { generateInitialPieces, validValues, startingBoard } from "./pieceMap";
-import { scanForWinner, transposeArray } from "../../utils/helpers";
+import { scanBoardForWinner } from "../../utils/helpers";
 import { ValidValue } from "./types/game";
 
 const StyledBoard = styled.div`
@@ -74,15 +74,7 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
         });
       }
     });
-    if (
-      // rows
-      scanForWinner(boardMap) ||
-      // columns
-      scanForWinner(transposeArray(boardMap)) ||
-      // diagonals
-      scanForWinner(boardMap, true)
-    )
-      setWinner(true);
+    if (scanBoardForWinner(boardMap)) setWinner(true);
   }, [availablePieces, boardMap]);
 
   // winner display
