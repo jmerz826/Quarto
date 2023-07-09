@@ -1,3 +1,5 @@
+import { validValues } from "../components/game/pieceMap";
+
 export const getColor = (occupiedPieceClasses: string[]) =>
   occupiedPieceClasses.some((className) => className === "light")
     ? "light"
@@ -18,11 +20,11 @@ export const getShape = (occupiedPieceClasses: string[]) =>
 export const transposeArray = <T>(arr: T[][]): T[][] =>
   arr[0].map((_, columnIndex) => arr.map((row) => row[columnIndex]));
 
-export const scanForWinner = (arr: any[]) => {
+export const scanForWinner = (arr: (typeof validValues)[number][][][]) => {
   let isWinner = false;
   arr.forEach((row) => {
     // loop through each row
-    let winningAttributes: string[] = [];
+    let winningAttributes: (typeof validValues)[number][] = [];
     for (let col = 0; col < row.length; col++) {
       // unoccupied tile
       if (!row[col].length) break;

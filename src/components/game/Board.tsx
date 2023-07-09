@@ -38,7 +38,7 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
   );
   const [dropLock, setDropLock] = useState(false);
   const [isWinner, setWinner] = useState(false);
-  const [boardMap, setBoardMap] = useState<any[]>(startingBoard);
+  const [boardMap, setBoardMap] = useState(startingBoard);
 
   const memoizedValue = useMemo(
     () => ({
@@ -58,11 +58,11 @@ const AvailablePiecesContextProvider = (props: IContextProviderProps) => {
       const column = Number(
         tile.getAttribute("data-column") as unknown as string
       );
-      const occupyingPieceClasses = [
-        ...(tile.firstChild as HTMLElement).classList,
-      ].filter((className) =>
-        validValues.includes(className as (typeof validValues)[number])
-      );
+      const occupyingPieceClasses = (
+        [
+          ...(tile.firstChild as HTMLElement).classList,
+        ] as unknown as (typeof validValues)[number][]
+      ).filter((className) => validValues.includes(className));
       // update boardMap state if newly occupied piece
       if (!boardMap[row][column].length) {
         setBoardMap((prevState) => {

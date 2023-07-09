@@ -30,7 +30,9 @@ function generateInitialPieces<T extends Record<keyof IPiece, string>>(
   return iterations;
 }
 
-const getStartingBoard = (numberOfRows: number) => {
+const getStartingBoard = (
+  numberOfRows: number
+): (typeof validValues)[number][][][] => {
   const rowArr = [];
   for (let i = 0; i < numberOfRows; i++) {
     const colArr = [];
