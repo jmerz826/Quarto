@@ -26,7 +26,9 @@ export const scanForWinner = (
 ) => {
   let isWinner = false;
   if (searchDiagonals) {
+    // top left to bottom right
     const mainDiagonal = arr.map((row, i) => row[i]);
+    // bottom left to top right
     const secondaryDiagonal = arr.map((row, i) => row[row.length - 1 - i]);
     if (checkAttributes(mainDiagonal) || checkAttributes(secondaryDiagonal))
       isWinner = true;
