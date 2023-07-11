@@ -2,6 +2,11 @@ body {
   margin: 0;
 }
 
+html {
+  /* prevent scrollbar from hiding and re-appearing */
+  overflow-y: scroll;
+}
+
 .italic {
   font-style: italic;
 }
@@ -17,11 +22,11 @@ body {
 }
 
 .tall {
-  height: 50px;
+  height: 100px;
 }
 
 .short {
-  height: 25px;
+  height: 50px;
 }
 
 .rounded {
@@ -30,12 +35,16 @@ body {
 }
 
 .polka-dot {
-  background-image: radial-gradient(#000000 20%, transparent 20%),
-    radial-gradient(#ffffff 20%, transparent 20%);
-  background-size: 20px 20px;
+  background-image: radial-gradient(#000000 30%, transparent 30%),
+    radial-gradient(#ffffff 30%, transparent 30%);
+  background-size: 25px 25px;
 }
 
 .polka-dot.dark {
   background-image: radial-gradient(#ffffff 20%, transparent 20%),
     radial-gradient(#000000 20%, transparent 20%);
+}
+
+main {
+  padding: 0 8px;
 }

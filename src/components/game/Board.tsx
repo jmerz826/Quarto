@@ -8,11 +8,11 @@ import { scanBoardForWinner } from "../../utils/helpers";
 import { ValidValue } from "./types/game";
 
 const StyledBoard = styled.div`
-  height: 400px;
+  height: 600px;
   background-color: black;
-  width: 400px;
+  width: 600px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 50px;
   border: 5px solid gold;
   border-radius: 4px;
 `;

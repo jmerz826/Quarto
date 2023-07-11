@@ -11,7 +11,7 @@ export interface IPiece {
 }
 
 const StyledPiece = styled.div`
-  width: 20px;
+  width: 25px;
   display: inline-block;
   border: 2px solid;
 `;

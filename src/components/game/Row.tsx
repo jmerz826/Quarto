@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Tile } from "./Tile";
 const StyledRow = styled.div`
   width: 100%;
-  height: 100px;
+  height: 25%;
   display: flex;
 `;
 

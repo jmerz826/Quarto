@@ -8,7 +8,7 @@ import { AvailablePiecesContext, IAvailablePieces } from "./Board";
 const StyledTile = styled.div`
   margin: 16px;
   background-color: rgba(255, 0, 0, 0.6);
-  width: 100px;
+  width: 125px;
   border: 2px solid gold;
   &.piece-hover {
     background-color: white;

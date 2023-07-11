@@ -5,11 +5,12 @@ import { AvailablePiecesContext, IAvailablePieces } from "./Board";
 
 const StyledPiecesTray = styled.div`
   background-color: gold;
-  width: 600px;
+  width: 800px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 24px;
   display: flex;
   justify-content: space-around;
+  align-items: baseline;
   padding: 10px;
 `;
 
