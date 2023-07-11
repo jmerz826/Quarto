@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Piece } from "./Piece";
 import { useContext } from "react";
 import { GameContext, IGameContext } from "./Board";
+import classNames from "classnames";
 
 const StyledPiecesTray = styled.div`
   background-color: gold;
@@ -14,6 +15,15 @@ const StyledPiecesTray = styled.div`
   padding: 0 10px;
   .piece {
     margin: 10px auto;
+    cursor: pointer;
+  }
+  &.place-piece {
+    .piece:hover {
+      cursor: grab;
+    }
+    .piece:active {
+      cursor: grabbing;
+    }
   }
 `;
 
@@ -23,7 +33,7 @@ const PiecesTray = () => {
   ) as IGameContext;
 
   return (
-    <StyledPiecesTray>
+    <StyledPiecesTray className={classNames({ "place-piece": !!pieceToPlace })}>
       {!isWinner &&
         availablePieces.map(({ color, shape, pattern, height }) => {
           const isPieceToPlace = () =>
