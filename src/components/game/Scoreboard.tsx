@@ -5,12 +5,11 @@ import { GameContext, IGameContext } from "./Board";
 const StyledScoreboard = styled.div`
   background-color: beige;
   height: 50px;
-`;
-
-const StyledWinnerText = styled.p`
+  margin: 0 20%;
   text-align: center;
-  line-height: 50px;
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Scoreboard = () => {
@@ -18,17 +17,13 @@ const Scoreboard = () => {
     GameContext
   ) as IGameContext;
   const instructionText =
-    movePending === "select" ? (
-      <span>Player {currentPlayer}, select a piece for your opponent</span>
-    ) : (
-      <span>Player {currentPlayer}, place your piece</span>
-    );
-  const winnerText = (
-    <StyledWinnerText>Player {currentPlayer} wins!</StyledWinnerText>
-  );
+    movePending === "select"
+      ? `Player ${currentPlayer}, select a piece for your opponent`
+      : `Player ${currentPlayer}, place your piece`;
+  const winnerText = `Player ${currentPlayer} wins!`;
   return (
     <StyledScoreboard>
-      {isWinner ? winnerText : instructionText}
+      <span>{isWinner ? winnerText : instructionText}</span>
     </StyledScoreboard>
   );
 };
