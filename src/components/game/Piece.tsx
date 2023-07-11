@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import styled from "styled-components";
 import { useState, DragEventHandler, useContext } from "react";
-import { AvailablePiecesContext, IAvailablePieces } from "./Board";
+import { GameContext, IGameContext } from "./Board";
 
 export interface IPiece {
   color: "light" | "dark";
@@ -19,8 +19,8 @@ const StyledPiece = styled.div`
 const Piece = ({ color, height, shape, pattern }: IPiece) => {
   const [placed, setPlaced] = useState(false);
   const { setAvailablePieces, dropLock } = useContext(
-    AvailablePiecesContext
-  ) as IAvailablePieces;
+    GameContext
+  ) as IGameContext;
 
   const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     const draggedElement = event.target as HTMLDivElement;

@@ -3,7 +3,7 @@ import { useState, DragEventHandler, useContext, useEffect } from "react";
 import { Piece } from "./Piece";
 import classNames from "classnames";
 import { getColor, getHeight, getPattern, getShape } from "../../utils/helpers";
-import { AvailablePiecesContext, IAvailablePieces } from "./Board";
+import { GameContext, IGameContext } from "./Board";
 
 const StyledTile = styled.div`
   margin: 16px;
@@ -25,9 +25,7 @@ interface TileProps {
 
 const Tile = (props: TileProps) => {
   const { rowId, columnId } = props;
-  const { setDropLock } = useContext(
-    AvailablePiecesContext
-  ) as IAvailablePieces;
+  const { setDropLock } = useContext(GameContext) as IGameContext;
   const [isOccupied, setIsOccupied] = useState(false);
   const [pieceHover, setPieceHover] = useState(false);
   const [occupiedPieceClasses, setOccupiedPieceClasses] = useState<

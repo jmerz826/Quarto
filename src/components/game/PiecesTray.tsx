@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Piece } from "./Piece";
 import { useContext } from "react";
-import { AvailablePiecesContext, IAvailablePieces } from "./Board";
+import { GameContext, IGameContext } from "./Board";
 
 const StyledPiecesTray = styled.div`
   background-color: gold;
@@ -15,9 +15,7 @@ const StyledPiecesTray = styled.div`
 `;
 
 const PiecesTray = () => {
-  const { availablePieces } = useContext(
-    AvailablePiecesContext
-  ) as IAvailablePieces;
+  const { availablePieces } = useContext(GameContext) as IGameContext;
   return (
     <StyledPiecesTray>
       {availablePieces.map(({ color, shape, pattern, height }) => {
