@@ -33,7 +33,10 @@ const PiecesTray = () => {
   ) as IGameContext;
 
   return (
-    <StyledPiecesTray className={classNames({ "place-piece": !!pieceToPlace })}>
+    <StyledPiecesTray
+      id="pieces-tray"
+      className={classNames({ "place-piece": !!pieceToPlace })}
+    >
       {!isWinner &&
         availablePieces.map(({ color, shape, pattern, height }) => {
           const isPieceToPlace = () =>

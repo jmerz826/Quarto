@@ -60,8 +60,11 @@ const Piece = ({ color, height, shape, pattern }: IPiece) => {
       onDragStart={handleDragStart}
       onDragEnd={handleDrag}
       draggable={!placed}
-      onClick={() => {
-        if (movePending === "select") {
+      onClick={(e: React.MouseEvent) => {
+        if (
+          (e.target as HTMLElement)?.parentElement?.id === "pieces-tray" &&
+          movePending === "select"
+        ) {
           setPieceToPlace([color, height, shape, pattern]);
           setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
           setMovePending("place");
