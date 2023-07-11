@@ -7,6 +7,12 @@ const StyledScoreboard = styled.div`
   height: 50px;
 `;
 
+const StyledWinnerText = styled.p`
+  text-align: center;
+  line-height: 50px;
+  margin: 0;
+`;
+
 const Scoreboard = () => {
   const { currentPlayer, movePending, isWinner } = useContext(
     GameContext
@@ -17,9 +23,12 @@ const Scoreboard = () => {
     ) : (
       <span>Player {currentPlayer}, place your piece</span>
     );
+  const winnerText = (
+    <StyledWinnerText>Player {currentPlayer} wins!</StyledWinnerText>
+  );
   return (
     <StyledScoreboard>
-      {!isWinner ? instructionText : <span>Player {currentPlayer} wins!</span>}
+      {isWinner ? winnerText : instructionText}
     </StyledScoreboard>
   );
 };
