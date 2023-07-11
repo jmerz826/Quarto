@@ -25,7 +25,8 @@ interface TileProps {
 
 const Tile = (props: TileProps) => {
   const { rowId, columnId } = props;
-  const { setDropLock } = useContext(GameContext) as IGameContext;
+  const { setDropLock, setPieceToPlace, setMovePending, movePending } =
+    useContext(GameContext) as IGameContext;
   const [isOccupied, setIsOccupied] = useState(false);
   const [pieceHover, setPieceHover] = useState(false);
   const [occupiedPieceClasses, setOccupiedPieceClasses] = useState<
@@ -43,12 +44,12 @@ const Tile = (props: TileProps) => {
   };
 
   useEffect(() => {
-    if (pieceHover && !isOccupied) {
+    if (pieceHover && !isOccupied && movePending === "place") {
       setDropLock(false);
     } else {
       setDropLock(true);
     }
-  }, [pieceHover, isOccupied, setDropLock]);
+  }, [pieceHover, isOccupied, setDropLock, movePending]);
 
   const handleDrop: DragEventHandler = (e) => {
     e.preventDefault();
@@ -61,8 +62,14 @@ const Tile = (props: TileProps) => {
       setPieceHover(false);
     }
 
-    if (!isOccupied && droppedElementClasses.includes("piece")) {
+    if (
+      movePending === "place" &&
+      !isOccupied &&
+      droppedElementClasses.includes("piece")
+    ) {
       setIsOccupied(true);
+      setPieceToPlace(undefined);
+      setMovePending("select");
       setOccupiedPieceClasses(droppedElementClasses);
     }
     setPieceHover(false);

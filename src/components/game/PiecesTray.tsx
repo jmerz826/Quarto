@@ -11,24 +11,48 @@ const StyledPiecesTray = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: baseline;
-  padding: 10px;
+  padding: 0 10px;
+  .piece {
+    margin: 10px auto;
+  }
 `;
 
 const PiecesTray = () => {
-  const { availablePieces } = useContext(GameContext) as IGameContext;
+  const { availablePieces, pieceToPlace, isWinner } = useContext(
+    GameContext
+  ) as IGameContext;
+
   return (
     <StyledPiecesTray>
-      {availablePieces.map(({ color, shape, pattern, height }) => {
-        return (
-          <Piece
-            color={color}
-            shape={shape}
-            pattern={pattern}
-            height={height}
-            key={color + shape + pattern + height}
-          />
-        );
-      })}
+      {!isWinner &&
+        availablePieces.map(({ color, shape, pattern, height }) => {
+          const isPieceToPlace = () =>
+            pieceToPlace &&
+            pieceToPlace.includes(color) &&
+            pieceToPlace.includes(shape) &&
+            pieceToPlace.includes(pattern) &&
+            pieceToPlace.includes(height);
+
+          return !pieceToPlace ? (
+            <Piece
+              color={color}
+              shape={shape}
+              pattern={pattern}
+              height={height}
+              key={color + shape + pattern + height}
+            />
+          ) : (
+            isPieceToPlace() && (
+              <Piece
+                color={color}
+                shape={shape}
+                pattern={pattern}
+                height={height}
+                key={color + shape + pattern + height}
+              />
+            )
+          );
+        })}
     </StyledPiecesTray>
   );
 };

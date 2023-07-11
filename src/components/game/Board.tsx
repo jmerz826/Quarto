@@ -27,6 +27,16 @@ export interface IGameContext {
   setCurrentPlayer: React.Dispatch<
     React.SetStateAction<IGameContext["currentPlayer"]>
   >;
+  movePending: "select" | "place";
+  setMovePending: React.Dispatch<
+    React.SetStateAction<IGameContext["movePending"]>
+  >;
+  pieceToPlace: undefined | ValidValue[];
+  setPieceToPlace: React.Dispatch<
+    React.SetStateAction<IGameContext["pieceToPlace"]>
+  >;
+  isWinner: boolean;
+  setIsWinner: React.Dispatch<React.SetStateAction<IGameContext["isWinner"]>>;
 }
 
 interface IContextProviderProps {
@@ -41,9 +51,11 @@ const GameContextProvider = (props: IContextProviderProps) => {
     generateInitialPieces()
   );
   const [dropLock, setDropLock] = useState(false);
-  const [isWinner, setWinner] = useState(false);
+  const [isWinner, setIsWinner] = useState(false);
   const [boardMap, setBoardMap] = useState(startingBoard);
   const [currentPlayer, setCurrentPlayer] = useState<1 | 2>(1);
+  const [movePending, setMovePending] = useState<"select" | "place">("select");
+  const [pieceToPlace, setPieceToPlace] = useState<undefined | ValidValue[]>();
 
   const memoizedValue = useMemo(
     () => ({
@@ -78,13 +90,8 @@ const GameContextProvider = (props: IContextProviderProps) => {
         });
       }
     });
-    if (scanBoardForWinner(boardMap)) setWinner(true);
+    if (scanBoardForWinner(boardMap)) setIsWinner(true);
   }, [availablePieces, boardMap]);
-
-  // winner display
-  useEffect(() => {
-    if (isWinner) alert("winner!");
-  }, [isWinner]);
 
   return (
     <GameContext.Provider
@@ -94,6 +101,12 @@ const GameContextProvider = (props: IContextProviderProps) => {
         setDropLock,
         currentPlayer,
         setCurrentPlayer,
+        movePending,
+        setMovePending,
+        pieceToPlace,
+        setPieceToPlace,
+        isWinner,
+        setIsWinner,
       }}
     >
       {children}

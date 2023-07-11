@@ -18,9 +18,15 @@ const StyledPiece = styled.div`
 
 const Piece = ({ color, height, shape, pattern }: IPiece) => {
   const [placed, setPlaced] = useState(false);
-  const { setAvailablePieces, dropLock } = useContext(
-    GameContext
-  ) as IGameContext;
+  const {
+    setAvailablePieces,
+    dropLock,
+    setPieceToPlace,
+    movePending,
+    setMovePending,
+    setCurrentPlayer,
+    currentPlayer,
+  } = useContext(GameContext) as IGameContext;
 
   const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     const draggedElement = event.target as HTMLDivElement;
@@ -54,6 +60,13 @@ const Piece = ({ color, height, shape, pattern }: IPiece) => {
       onDragStart={handleDragStart}
       onDragEnd={handleDrag}
       draggable={!placed}
+      onClick={() => {
+        if (movePending === "select") {
+          setPieceToPlace([color, height, shape, pattern]);
+          setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+          setMovePending("place");
+        }
+      }}
     />
   );
 };

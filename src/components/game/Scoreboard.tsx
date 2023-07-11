@@ -8,10 +8,18 @@ const StyledScoreboard = styled.div`
 `;
 
 const Scoreboard = () => {
-  const { currentPlayer } = useContext(GameContext) as IGameContext;
+  const { currentPlayer, movePending, isWinner } = useContext(
+    GameContext
+  ) as IGameContext;
+  const instructionText =
+    movePending === "select" ? (
+      <span>Player {currentPlayer}, select a piece for your opponent</span>
+    ) : (
+      <span>Player {currentPlayer}, place your piece</span>
+    );
   return (
     <StyledScoreboard>
-      <span>Player {currentPlayer}, select a piece for your opponent</span>
+      {!isWinner ? instructionText : <span>Player {currentPlayer} wins!</span>}
     </StyledScoreboard>
   );
 };
