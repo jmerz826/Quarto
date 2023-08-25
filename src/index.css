@@ -7,6 +7,10 @@ html {
   overflow-y: scroll;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .italic {
   font-style: italic;
 }
@@ -37,7 +41,7 @@ html {
 .polka-dot {
   background-image: radial-gradient(#000000 30%, transparent 30%),
     radial-gradient(#ffffff 30%, transparent 30%);
-  background-size: 25px 25px;
+  background-size: 10px 10px;
 }
 
 .polka-dot.dark {
