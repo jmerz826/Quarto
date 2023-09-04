@@ -11,8 +11,7 @@ import { Scoreboard } from "./Scoreboard";
 const StyledBoard = styled.div`
   aspect-ratio: 1 / 1;
   background-color: black;
-  /* max-width: 500px; */
-  max-height: 75vh;
+  max-height: 600px;
   margin: auto;
   margin-top: 50px;
   border: 5px solid gold;
