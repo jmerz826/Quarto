@@ -9,13 +9,15 @@ import { ValidValue } from "./types/game";
 import { Scoreboard } from "./Scoreboard";
 
 const StyledBoard = styled.div`
-  height: 600px;
+  aspect-ratio: 1 / 1;
   background-color: black;
-  width: 600px;
+  /* max-width: 500px; */
+  max-height: 75vh;
   margin: auto;
   margin-top: 50px;
   border: 5px solid gold;
   border-radius: 4px;
+  padding: 1%;
 `;
 
 export interface IGameContext {
