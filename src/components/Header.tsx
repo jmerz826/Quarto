@@ -9,8 +9,6 @@ const StyledHeader = styled.header`
   background-color: beige;
   padding: 0.25rem;
   text-align: center;
-  /* display: flex;
-  justify-content: space-between; */
 `;
 const StyledExpandButton = styled.button`
   background: transparent;
