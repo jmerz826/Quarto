@@ -1,6 +1,16 @@
+import styled from "styled-components";
+
+const StyledUL = styled.ul`
+  list-style: disc;
+  list-style-position: inside;
+  text-align: left;
+  width: fit-content;
+  margin: auto;
+`;
+
 const Rules = () => {
   return (
-    <ul>
+    <StyledUL>
       <li>
         Line up 4 <span className="italic">like</span> pieces
       </li>
@@ -13,7 +23,7 @@ const Rules = () => {
         You must place your piece, then choose a piece for your opponent to
         place
       </li>
-    </ul>
+    </StyledUL>
   );
 };
 
